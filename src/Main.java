@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -86,5 +87,36 @@ public class Main {
         System.out.println(list);
         Collections.sort(list, (o1,o2)->o2.getName().compareTo(o1.getName())); // list<T> : T phải triển khai COmparable
         System.out.println(list);
+
+        //Viết chương trình Java để đếm số lần xuất hiện của mỗi phần tử trong một mảng và lưu trữ kết quả trong HashMap.
+        Random random = new Random();
+        List<Integer> randomList = Stream.generate(() -> random.nextInt(50)).limit(100).toList();// thuật toán random 100 số ngẫu nhiên từ 0- 1000
+
+        System.out.println(randomList);
+        // sử dụng hash map
+        //  B1 duyệt qua từng phần tử của randomlist
+        //  B2 Kiểm tra phần tử đang xét đã tồn tại trong map hay chưa
+        // neeusu chưa tồn tại thì theem 1 cặp entry : number - count = 1
+        // nếu đã tồn tại thì put cặp entry : number - count = count+1
+        Map<Integer, Integer> map = new HashMap<>();
+        for (Integer element : randomList){
+            if (map.containsKey(element)){
+                map.put(element,map.get(element)+1);
+            }else {
+                map.put(element,1);
+            }
+        }
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()){
+            System.out.println("Số : "+entry.getKey() + " | Xuất hiên " + entry.getValue() + " lần" );
+        }
+        // sắp xếp tăng dâ theo số lần xuất hiện
+        List<Map.Entry<Integer,Integer>> sortList = new ArrayList<>(map.entrySet());
+        Collections.sort(sortList,(o1, o2) -> o1.getValue()-o2.getValue());
+//        sortList.sort((o1, o2) -> o1.getValue()-o2.getValue());
+        System.out.println("Daanh sach da săp xep");
+        for (Map.Entry<Integer, Integer> entry : sortList){
+            System.out.println("Số : "+entry.getKey() + " | Xuất hiên " + entry.getValue() + " lần" );
+        }
     }
 }
