@@ -1,6 +1,8 @@
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Main {
@@ -90,7 +92,10 @@ public class Main {
 
         //Viết chương trình Java để đếm số lần xuất hiện của mỗi phần tử trong một mảng và lưu trữ kết quả trong HashMap.
         Random random = new Random();
-        List<Integer> randomList = Stream.generate(() -> random.nextInt(50)).limit(100).toList();// thuật toán random 100 số ngẫu nhiên từ 0- 1000
+        List<Integer> randomList =
+                Stream.generate(() -> random.nextInt(50))
+                        .limit(50)
+                        .toList();// thuật toán random 100 số ngẫu nhiên từ 0- 1000
 
         System.out.println(randomList);
         // sử dụng hash map
@@ -118,5 +123,28 @@ public class Main {
         for (Map.Entry<Integer, Integer> entry : sortList){
             System.out.println("Số : "+entry.getKey() + " | Xuất hiên " + entry.getValue() + " lần" );
         }
+//        Sắp xếp phần tử có giá trị tăng dần trong TreeMap.
+//                Tìm phần tử nhỏ nhất trong TreeMap
+//        Tìm phần tử lớn thứ 2 trong TreeMap
+//        Sắp xếp các phần tử theo giá trị giảm dần trong TreeMap
+
+        TreeMap<Integer,Integer> tree = new TreeMap<>();
+        for (Integer e : randomList){
+            tree.put(e,0);
+        }
+        for (Integer key  : tree.keySet()){
+            System.out.println("Key "+key );
+        }
+
+        System.out.println("Phần tử nhỏ nhất trong tree map : "+tree.firstKey());
+        System.out.println("Phần tử lơn thứ 2 trong tree map : "+tree.lowerKey(tree.lastKey()));
+
+        NavigableSet<Integer> integers =  tree.descendingKeySet();
+        while (!integers.isEmpty()){
+            System.out.println(integers.pollFirst());
+        }
+
+
+
     }
 }
